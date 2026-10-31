@@ -1,0 +1,81 @@
+<% if (site.announcement.enabled) { %>
+<div class="announce">
+  <div class="container announce__inner">
+    <p><%= site.announcement.text %> <a href="<%= site.announcement.href %>"><%= site.announcement.linkText %></a></p>
+  </div>
+</div>
+<% } %>
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label="<%= site.company.name %> home">
+      <%- include('logo-mark') %>
+      <span class="brand__name"><%= site.company.shortName %></span><span class="brand__suffix">Technologies</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main">
+      <ul class="main-nav__list">
+        <% site.nav.forEach((item, i) => {
+             const active = currentPath === item.href || currentPath.startsWith(item.href + '/'); %>
+          <li class="main-nav__item">
+            <% if (item.columns) { %>
+              <button class="main-nav__trigger<%= active ? ' is-active' : '' %>" type="button" aria-expanded="false" aria-controls="mega-<%= i %>" data-mega-trigger>
+                <%= item.label %>
+                <svg class="chev" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="mega" id="mega-<%= i %>" hidden data-mega>
+                <div class="container mega__inner">
+                  <div class="mega__intro">
+                    <p class="mega__title"><%= item.label %></p>
+                    <p><%= item.intro %></p>
+                    <a class="link-strong" href="<%= item.allLink.href %>"><%= item.allLink.label %></a>
+                  </div>
+                  <% item.columns.forEach((col) => { %>
+                    <div class="mega__col">
+                      <p class="mega__heading"<%- col.title ? '' : ' aria-hidden="true"' %>><%- col.title ? col.title : '&nbsp;' %></p>
+                      <ul class="mega__links<%= col.links.length > 6 ? ' mega__links--two' : '' %>">
+                        <% col.links.forEach((l) => { %><li><a href="<%= l.href %>"><%= l.label %></a></li><% }) %>
+                      </ul>
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
+            <% } else { %>
+              <a class="main-nav__link" href="<%= item.href %>"<%- active ? ' aria-current="page"' : '' %>><%= item.label %></a>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="btn btn--primary btn--sm" href="/contact">Book a call</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>
+        <span class="sr-only">Menu</span>
+        <span class="menu-toggle__bars" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" hidden data-mobile-nav>
+    <div class="container">
+      <ul class="mobile-nav__list">
+        <% site.nav.forEach((item) => { %>
+          <li>
+            <% if (item.columns) { %>
+              <details>
+                <summary><%= item.label %></summary>
+                <ul>
+                  <% item.columns.forEach((col) => col.links.forEach((l) => { %><li><a href="<%= l.href %>"><%= l.label %></a></li><% })) %>
+                  <li><a class="link-strong" href="<%= item.allLink.href %>"><%= item.allLink.label %></a></li>
+                </ul>
+              </details>
+            <% } else { %>
+              <a class="mobile-nav__link" href="<%= item.href %>"><%= item.label %></a>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+      <a class="btn btn--primary btn--block" href="/contact">Book a call</a>
+    </div>
+  </div>
+</header>

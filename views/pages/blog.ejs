@@ -1,0 +1,14 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', {
+    title: 'Notes on building software and the teams behind it.',
+    lede: 'Practical articles on engineering teams, delivery and AI in production, written by the people doing the work.'
+  }) %>
+  <section class="section">
+    <div class="container">
+      <%- include('../partials/post-grid', { posts: site.posts }) %>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

@@ -1,0 +1,23 @@
+{
+  "name": "cerebyte-technologies",
+  "version": "1.0.0",
+  "description": "Cerebyte Technologies company website (Node.js + Express + EJS)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node scripts/check.js"
+  },
+  "author": "Cerebyte Technologies",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "compression": "1.8.2",
+    "ejs": "5.0.2",
+    "express": "4.22.3",
+    "helmet": "8.3.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18.18"
+  }
+}

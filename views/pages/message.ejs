@@ -1,0 +1,16 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <section class="page-hero page-hero--message">
+    <div class="container">
+      <h1 class="page-hero__title"><%- headline(heading) %></h1>
+      <p class="page-hero__lede"><%= text %></p>
+      <% if (locals.links && links.length) { %>
+        <div class="hero__actions">
+          <% links.forEach((l, i) => { %><a class="btn <%= i === 0 ? 'btn--primary' : 'btn--ghost' %>" href="<%= l.href %>"><%= l.label %></a><% }) %>
+        </div>
+      <% } %>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

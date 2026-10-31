@@ -1,0 +1,29 @@
+<%# Small diagrams for the three engagement models, drawn in the brand's node-and-link style. %>
+<svg class="model-art" viewBox="0 0 320 180" aria-hidden="true" focusable="false">
+  <% if (id === 'staff-augmentation') { %>
+    <rect x="20" y="30" width="280" height="120" rx="18" fill="none" stroke="var(--line-strong)" stroke-dasharray="5 6"/>
+    <text x="36" y="56" class="model-art__label">Your team</text>
+    <g stroke="var(--line-strong)" stroke-width="1.5"><path d="M70 105h50M120 105h50M170 105l45-25M170 105l45 25"/></g>
+    <g fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><circle cx="70" cy="105" r="13"/><circle cx="120" cy="105" r="13"/><circle cx="170" cy="105" r="13"/></g>
+    <g fill="var(--blue)"><circle cx="215" cy="80" r="13"/><circle cx="215" cy="130" r="13"/></g>
+    <text x="236" y="84" class="model-art__tag">+1</text><text x="236" y="134" class="model-art__tag">+1</text>
+  <% } else if (id === 'dedicated-teams') { %>
+    <g fill="none" stroke="var(--line-strong)" stroke-width="1.5"><path d="M50 66l42 24M50 114l42-24M104 90h46"/></g>
+    <g fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><circle cx="50" cy="66" r="12"/><circle cx="50" cy="114" r="12"/><circle cx="92" cy="90" r="12"/></g>
+    <text x="38" y="150" class="model-art__label">Your team</text>
+    <rect x="150" y="26" width="150" height="128" rx="18" fill="var(--blue-wash)" stroke="var(--blue)" stroke-width="1.5"/>
+    <g fill="none" stroke="var(--blue)" stroke-opacity=".5" stroke-width="1.5"><path d="M190 70l40 20 40-20M190 112l40-22 40 22M230 90V60"/></g>
+    <g fill="var(--blue)"><circle cx="230" cy="58" r="9"/><circle cx="190" cy="70" r="11"/><circle cx="270" cy="70" r="11"/><circle cx="230" cy="90" r="13"/><circle cx="190" cy="112" r="11"/><circle cx="270" cy="112" r="11"/></g>
+    <text x="166" y="142" class="model-art__label">Cerebyte pod</text>
+  <% } else { %>
+    <g stroke="var(--line-strong)" stroke-width="2"><path d="M44 90h232"/></g>
+    <g fill="var(--blue)">
+      <circle cx="44" cy="90" r="10" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+      <circle cx="112" cy="90" r="10"/><circle cx="170" cy="90" r="10"/><circle cx="228" cy="90" r="10"/>
+      <rect x="264" y="78" width="24" height="24" rx="6"/>
+    </g>
+    <text x="22" y="128" class="model-art__tag">Your goal</text>
+    <text x="92" y="64" class="model-art__tag">Plan</text><text x="154" y="128" class="model-art__tag">Build</text>
+    <text x="208" y="64" class="model-art__tag">Test</text><text x="252" y="128" class="model-art__tag">Launch</text>
+  <% } %>
+</svg>

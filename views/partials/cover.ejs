@@ -1,0 +1,38 @@
+<%
+  // Deterministic abstract "network" cover art generated from the post slug.
+  let seed = 0;
+  for (const ch of post.slug) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
+  const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  // Jittered grid keeps nodes evenly spread; one larger "hub" node anchors each cover.
+  const nodes = [];
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 6; col++) {
+      if (rand() < 0.18) continue;
+      nodes.push({ x: 28 + col * 68 + (rand() - 0.5) * 44, y: 40 + row * 72 + (rand() - 0.5) * 40, r: 2.4 + rand() * 3 });
+    }
+  }
+  const hub = nodes[Math.floor(rand() * nodes.length)];
+  hub.r = 9;
+  const edges = [];
+  nodes.forEach((a, i) => {
+    const near = nodes.map((b, j) => ({ j, d: Math.hypot(a.x - b.x, a.y - b.y) })).filter((n) => n.j !== i).sort((p, q) => p.d - q.d).slice(0, 3);
+    near.forEach((n) => { if (i < n.j || !edges.some((e) => e[0] === n.j && e[1] === i)) edges.push([i, n.j]); });
+  });
+  const h = post.hue;
+  const gid = 'g-' + post.slug;
+%>
+<svg class="cover" viewBox="0 0 400 225" role="img" aria-label="Abstract network illustration" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="<%= gid %>" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(<%= h %> 62% 16%)"/>
+      <stop offset="1" stop-color="hsl(<%= h %> 72% 38%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#<%= gid %>)"/>
+  <g stroke="hsl(<%= h %> 90% 82%)" stroke-opacity=".35" stroke-width="1">
+    <% edges.forEach(([i, j]) => { %><line x1="<%= nodes[i].x.toFixed(1) %>" y1="<%= nodes[i].y.toFixed(1) %>" x2="<%= nodes[j].x.toFixed(1) %>" y2="<%= nodes[j].y.toFixed(1) %>"/><% }) %>
+  </g>
+  <g fill="hsl(<%= h %> 90% 88%)">
+    <% nodes.forEach((n, i) => { %><% if (n === hub) { %><circle cx="<%= n.x.toFixed(1) %>" cy="<%= n.y.toFixed(1) %>" r="22" fill="hsl(<%= h %> 90% 70%)" opacity=".18"/><% } %><circle cx="<%= n.x.toFixed(1) %>" cy="<%= n.y.toFixed(1) %>" r="<%= n.r.toFixed(1) %>" opacity="<%= n === hub || i % 3 === 0 ? 1 : 0.6 %>"/><% }) %>
+  </g>
+</svg>

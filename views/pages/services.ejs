@@ -1,0 +1,55 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', {
+    title: 'Software development services, built around your product.',
+    lede: 'Pick how you want to work with us, then the skills you need. Most clients combine several of these as their product grows.',
+    cta: { label: 'Book a call', href: '/contact' }
+  }) %>
+
+  <section class="section" aria-labelledby="models-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="models-title"><%- headline('Three ways to work together.') %></h2>
+      </div>
+      <div class="model-list">
+        <% site.engagementModels.forEach((m) => { %>
+          <article class="model-card" id="<%= m.id %>">
+            <%- include('../partials/model-art', { id: m.id }) %>
+            <p class="model-card__q"><%= m.question %></p>
+            <h3 class="h3"><%= m.name %></h3>
+            <p><%= m.text %></p>
+            <ul class="checks"><% m.points.forEach((p) => { %><li><%= p %></li><% }) %></ul>
+            <a class="link-strong" href="/contact?model=<%= m.id %>">Discuss <%= m.name.toLowerCase() %></a>
+          </article>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="disciplines-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="disciplines-title"><%- headline('What we build.') %></h2>
+      </div>
+      <div class="discipline-list">
+        <% site.services.forEach((s) => { %>
+          <article class="discipline" id="<%= s.id %>">
+            <div>
+              <h3 class="h3"><%= s.name %></h3>
+              <p class="discipline__summary"><%= s.summary %></p>
+            </div>
+            <div>
+              <p><%= s.details %></p>
+              <ul class="checks checks--two"><% s.deliverables.forEach((d) => { %><li><%= d %></li><% }) %></ul>
+              <ul class="tags"><% s.tags.forEach((t) => { %><li><a class="tag" href="/technologies"><%= t %></a></li><% }) %></ul>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../partials/cta-band') %>
+</main>
+<%- include('../partials/footer') %>

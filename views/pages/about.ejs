@@ -1,0 +1,48 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', {
+    title: 'We build software teams that think ahead.',
+    lede: 'Cerebyte Technologies is a software engineering company. We combine careful hiring, modern engineering practice and AI-assisted workflows to help product companies ship more, with less risk.'
+  }) %>
+
+  <section class="section" aria-labelledby="story-title">
+    <div class="container split">
+      <h2 class="h2" id="story-title"><%- headline('Our story.') %></h2>
+      <div class="prose">
+        <p>We started Cerebyte because we kept seeing the same problem: good product companies slowed down not by ideas, but by the time it takes to find, hire and ramp up great engineers.</p>
+        <p>So we built the company we wanted to work with. One that hires slowly and carefully, puts senior people on every team, communicates in writing and owns outcomes rather than hours.</p>
+        <p>Today our engineers, designers and testers work with startups and established businesses across fintech, healthcare, retail, logistics and more. The name says what we care about: thoughtful engineering (cere-) applied to real software (byte).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="values-title">
+    <div class="container">
+      <div class="section-head"><h2 class="h2" id="values-title"><%- headline('What we value.') %></h2></div>
+      <div class="why__reasons why__reasons--four">
+        <% site.values.forEach((v) => { %>
+          <div class="reason"><h3 class="reason__title"><%= v.title %></h3><p><%= v.text %></p></div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="hiring-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" id="hiring-title"><%- headline('How we hire.') %></h2>
+        <p class="lede">Every person on a client team has passed the same four stages.</p>
+      </div>
+      <ol class="steps steps--four">
+        <li class="step"><span class="step__num" aria-hidden="true">1</span><h3 class="step__title">Screening</h3><p>We review experience, portfolios and code samples against the role.</p></li>
+        <li class="step"><span class="step__num" aria-hidden="true">2</span><h3 class="step__title">Technical interview</h3><p>Senior engineers run a live problem-solving and system design session.</p></li>
+        <li class="step"><span class="step__num" aria-hidden="true">3</span><h3 class="step__title">Paid trial task</h3><p>A short, realistic assignment that shows how they write, test and explain code.</p></li>
+        <li class="step"><span class="step__num" aria-hidden="true">4</span><h3 class="step__title">Communication review</h3><p>We check written and spoken English, and how they handle feedback.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <%- include('../partials/cta-band') %>
+</main>
+<%- include('../partials/footer') %>

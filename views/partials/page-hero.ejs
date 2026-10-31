@@ -1,0 +1,8 @@
+<section class="page-hero">
+  <div class="container">
+    <% if (locals.crumb) { %><p class="page-hero__crumb"><a href="<%= crumb.href %>"><%= crumb.label %></a></p><% } %>
+    <h1 class="page-hero__title"><%- headline(title) %></h1>
+    <% if (locals.lede) { %><p class="page-hero__lede"><%= lede %></p><% } %>
+    <% if (locals.cta) { %><a class="btn btn--primary" href="<%= cta.href %>"><%= cta.label %></a><% } %>
+  </div>
+</section>

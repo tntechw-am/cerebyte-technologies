@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= page.isHome ? page.title : page.title + ' | ' + site.company.name %></title>
+  <meta name="description" content="<%= page.description || site.company.description %>">
+  <link rel="canonical" href="<%= site.company.url + (page.path || '/') %>">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="<%= site.company.name %>">
+  <meta property="og:title" content="<%= page.title %>">
+  <meta property="og:description" content="<%= page.description || site.company.description %>">
+  <meta property="og:url" content="<%= site.company.url + (page.path || '/') %>">
+  <meta name="theme-color" content="#081A36">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/onest-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/main.js" defer></script>
+  <% if (page.isHome) { %><script src="/js/network.js" defer></script><% } %>
+  <script type="application/ld+json">
+    <%- JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: site.company.name,
+      url: site.company.url,
+      email: site.company.email,
+      description: site.company.description
+    }) %>
+  </script>
+</head>
+<body class="<%= page.isHome ? 'is-home' : '' %>">
+<a class="skip-link" href="#main">Skip to main content</a>

@@ -1,0 +1,123 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%
+  const v = Object.assign({ name: '', email: '', company: '', phone: '', model: '', roles: [], budget: '', timeline: '', message: '', consent: false }, values);
+  const hasErrors = Object.keys(errors).length > 0;
+  const err = (field) => errors[field] ? `<p class="field__error" id="${field}-error">${errors[field]}</p>` : '';
+  const invalid = (field) => errors[field] ? ` aria-invalid="true" aria-describedby="${field}-error"` : '';
+%>
+<main id="main">
+  <section class="page-hero page-hero--compact">
+    <div class="container">
+      <h1 class="page-hero__title"><%- headline('Tell us what you are building.') %></h1>
+      <p class="page-hero__lede">Share a few details and we will reply within one working day to set up a 30-minute discovery call.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container contact">
+      <aside class="contact__aside" aria-labelledby="next-title">
+        <h2 class="h3" id="next-title">What happens next</h2>
+        <ol class="mini-steps">
+          <li><strong>We read your brief.</strong> A solutions lead reviews it and prepares questions.</li>
+          <li><strong>We talk for 30 minutes.</strong> Goals, team shape, timeline and budget.</li>
+          <li><strong>You get a proposal.</strong> Usually within three working days, with candidate profiles.</li>
+        </ol>
+        <div class="contact__direct">
+          <p>Prefer email?</p>
+          <a href="mailto:<%= site.company.email %>"><%= site.company.email %></a>
+          <a href="tel:<%= site.company.phone.replace(/\s+/g, '') %>"><%= site.company.phone %></a>
+        </div>
+      </aside>
+
+      <form class="form" action="/contact" method="post" novalidate>
+        <% if (hasErrors) { %>
+          <div class="form__alert" role="alert">
+            <p><strong>Check the highlighted fields.</strong> <%= Object.keys(errors).length %> <%= Object.keys(errors).length === 1 ? 'field needs' : 'fields need' %> attention before we can send your message.</p>
+          </div>
+        <% } %>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" value="<%= v.name %>" required<%- invalid('name') %>>
+            <%- err('name') %>
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" value="<%= v.email %>" required<%- invalid('email') %>>
+            <%- err('email') %>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="company">Company <span class="optional">(optional)</span></label>
+            <input id="company" name="company" type="text" autocomplete="organization" value="<%= v.company %>">
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="optional">(optional)</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" value="<%= v.phone %>">
+          </div>
+        </div>
+
+        <fieldset class="field">
+          <legend>How would you like to work with us?</legend>
+          <div class="choice-grid"<%- invalid('model') %>>
+            <% [...site.engagementModels.map((m) => m.name), 'Not sure yet'].forEach((opt, i) => { %>
+              <label class="choice"><input type="radio" name="model" value="<%= opt %>"<%= v.model === opt ? ' checked' : '' %>><span><%= opt %></span></label>
+            <% }) %>
+          </div>
+          <%- err('model') %>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Which roles do you need? <span class="optional">(optional)</span></legend>
+          <div class="choice-grid">
+            <% site.roles.forEach((role) => { %>
+              <label class="choice"><input type="checkbox" name="roles" value="<%= role %>"<%= v.roles.includes(role) ? ' checked' : '' %>><span><%= role %></span></label>
+            <% }) %>
+          </div>
+        </fieldset>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="budget">Monthly budget <span class="optional">(optional)</span></label>
+            <select id="budget" name="budget">
+              <% ['', 'Under $10k', '$10k to $25k', '$25k to $50k', '$50k to $100k', 'Over $100k'].forEach((o) => { %>
+                <option value="<%= o %>"<%= v.budget === o ? ' selected' : '' %>><%= o || 'Choose a range' %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="timeline">When do you want to start? <span class="optional">(optional)</span></label>
+            <select id="timeline" name="timeline">
+              <% ['', 'As soon as possible', 'Within a month', 'In 1 to 3 months', 'Just exploring'].forEach((o) => { %>
+                <option value="<%= o %>"<%= v.timeline === o ? ' selected' : '' %>><%= o || 'Choose a timeframe' %></option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">About your project</label>
+          <textarea id="message" name="message" rows="6" required placeholder="What are you building, what is the main challenge, and what would success look like in three months?"<%- invalid('message') %>><%= v.message %></textarea>
+          <%- err('message') %>
+        </div>
+
+        <div class="hp" aria-hidden="true">
+          <label for="website">Leave this field empty</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" name="consent"<%= v.consent ? ' checked' : '' %><%- invalid('consent') %>>
+            <span>I agree that <%= site.company.name %> may contact me about this enquiry, as described in the <a href="/privacy">privacy policy</a>.</span></label>
+          <%- err('consent') %>
+        </div>
+
+        <button class="btn btn--primary btn--lg" type="submit">Send and book a call</button>
+      </form>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

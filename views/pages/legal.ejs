@@ -1,0 +1,30 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { title: kind === 'privacy' ? 'Privacy policy.' : 'Terms of service.' }) %>
+  <section class="section section--tight">
+    <div class="container container--narrow prose">
+      <p class="notice">This page is a starting template, not legal advice. Have it reviewed by a qualified lawyer for your jurisdiction before you publish the site.</p>
+      <% if (kind === 'privacy') { %>
+        <h2>What we collect</h2>
+        <p>When you fill in our contact or newsletter forms we collect the details you enter, such as your name, email address, company and project information. Our server also records basic technical data such as your IP address and browser type to protect the site from abuse.</p>
+        <h2>How we use it</h2>
+        <p>We use your details only to reply to your enquiry, send the newsletter you asked for and improve our services. We do not sell your personal data.</p>
+        <h2>How long we keep it</h2>
+        <p>We keep enquiry data for as long as needed to respond and for our business records, and newsletter data until you unsubscribe.</p>
+        <h2>Your rights</h2>
+        <p>You can ask us to access, correct or delete your data at any time by emailing <a href="mailto:<%= site.company.email %>"><%= site.company.email %></a>.</p>
+      <% } else { %>
+        <h2>Using this website</h2>
+        <p>The content on this website is for general information about <%= site.company.name %> and its services. It may change without notice.</p>
+        <h2>Intellectual property</h2>
+        <p>Text, graphics and code on this site belong to <%= site.company.name %> unless stated otherwise. Do not reuse them without permission.</p>
+        <h2>Services</h2>
+        <p>Any work we do for you is governed by a separate written agreement. Nothing on this website forms a contract.</p>
+        <h2>Contact</h2>
+        <p>Questions about these terms can be sent to <a href="mailto:<%= site.company.email %>"><%= site.company.email %></a>.</p>
+      <% } %>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

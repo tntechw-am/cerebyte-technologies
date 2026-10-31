@@ -1,0 +1,21 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', {
+    title: 'Engineers for every layer of your stack.',
+    lede: 'Our teams work across 40+ languages, frameworks, databases and clouds. If you do not see your stack here, ask us; chances are we have someone who knows it.',
+    cta: { label: 'Find engineers for your stack', href: '/contact' }
+  }) %>
+  <section class="section" aria-label="Technologies by area">
+    <div class="container tech-groups">
+      <% site.technologies.forEach((g) => { %>
+        <section class="tech-group" id="<%= site.slugify(g.group) %>" aria-labelledby="tg-<%= site.slugify(g.group) %>">
+          <h2 class="h3" id="tg-<%= site.slugify(g.group) %>"><%= g.group %></h2>
+          <ul class="pill-list"><% g.items.forEach((t) => { %><li class="pill"><%= t %></li><% }) %></ul>
+        </section>
+      <% }) %>
+    </div>
+  </section>
+  <%- include('../partials/cta-band') %>
+</main>
+<%- include('../partials/footer') %>

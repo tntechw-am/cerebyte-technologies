@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <article>
+    <header class="page-hero page-hero--post">
+      <div class="container container--narrow">
+        <p class="page-hero__crumb"><a href="/blog">Blog</a></p>
+        <h1 class="page-hero__title page-hero__title--post"><%= post.title %></h1>
+        <p class="post-meta"><%= post.author %>, <time datetime="<%= post.date %>"><%= formatDate(post.date) %></time>, <%= post.readTime %></p>
+      </div>
+    </header>
+    <div class="section section--tight">
+      <div class="container container--narrow">
+        <div class="post-cover"><%- include('../partials/cover', { post }) %></div>
+        <div class="prose prose--article">
+          <p class="prose__lead"><%= post.excerpt %></p>
+          <% post.body.forEach((para) => { %><p><%= para %></p><% }) %>
+        </div>
+      </div>
+    </div>
+  </article>
+  <% if (more.length) { %>
+  <section class="section section--paper" aria-labelledby="more-title">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <h2 class="h2" id="more-title"><%- headline('Keep reading.') %></h2>
+        <a class="link-strong" href="/blog">All articles</a>
+      </div>
+      <%- include('../partials/post-grid', { posts: more }) %>
+    </div>
+  </section>
+  <% } %>
+  <%- include('../partials/cta-band') %>
+</main>
+<%- include('../partials/footer') %>

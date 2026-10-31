@@ -1,0 +1,40 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', {
+    title: 'Do the best work of your career.',
+    lede: 'Work on real products for clients around the world, with senior teammates, paid learning time and a clear path to lead.',
+    cta: { label: 'See open roles', href: '#roles' }
+  }) %>
+
+  <section class="section section--paper" aria-labelledby="perks-title">
+    <div class="container">
+      <div class="section-head"><h2 class="h2" id="perks-title"><%- headline('Why engineers join us.') %></h2></div>
+      <div class="why__reasons why__reasons--four">
+        <div class="reason"><h3 class="reason__title">Interesting problems</h3><p>Products in fintech, health, retail and AI, not maintenance-only contracts.</p></div>
+        <div class="reason"><h3 class="reason__title">Learning budget</h3><p>Paid time and money every month for courses, certifications and conferences.</p></div>
+        <div class="reason"><h3 class="reason__title">Flexible work</h3><p>Remote and hybrid roles, with hours planned around you and your client.</p></div>
+        <div class="reason"><h3 class="reason__title">Room to grow</h3><p>A transparent career ladder from engineer to tech lead to architect.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roles" aria-labelledby="roles-title">
+    <div class="container">
+      <div class="section-head"><h2 class="h2" id="roles-title"><%- headline('Open roles.') %></h2></div>
+      <ul class="job-list">
+        <% site.jobs.forEach((job) => { %>
+          <li class="job">
+            <div>
+              <h3 class="job__title"><%= job.title %></h3>
+              <p class="job__meta"><%= job.team %>, <%= job.location %>, <%= job.type %></p>
+            </div>
+            <a class="btn btn--outline" href="mailto:<%= site.company.careersEmail %>?subject=<%= encodeURIComponent('Application: ' + job.title) %>">Apply by email</a>
+          </li>
+        <% }) %>
+      </ul>
+      <p class="muted">Do not see your role? Send your CV to <a href="mailto:<%= site.company.careersEmail %>"><%= site.company.careersEmail %></a> and tell us what you would like to work on.</p>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

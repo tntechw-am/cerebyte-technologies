@@ -1,0 +1,4 @@
+node_modules/
+storage/*.jsonl
+.env
+.DS_Store

@@ -1,0 +1,20 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', {
+    title: 'Software for the way your industry works.',
+    lede: 'Regulations, peak seasons, legacy systems and user expectations differ by sector. We staff teams who have handled yours before.',
+    cta: { label: 'Talk to us about your sector', href: '/contact' }
+  }) %>
+  <section class="section" aria-label="Industries">
+    <div class="container">
+      <ul class="industry-grid">
+        <% site.industries.forEach((ind) => { %>
+          <li class="industry"><h2 class="industry__name"><%= ind.name %></h2><p><%= ind.text %></p></li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+  <%- include('../partials/cta-band') %>
+</main>
+<%- include('../partials/footer') %>
